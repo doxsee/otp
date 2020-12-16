@@ -117,7 +117,5 @@ def otpd(ciphertextInFile, otpInFile) :
     otpFile.close()
     
     return
-        
-        
-        
+
 main()
