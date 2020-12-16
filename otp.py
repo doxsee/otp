@@ -18,15 +18,17 @@ import time
 
 def main() :
     option = input("Press E to Encrypt a message or D to Decrypt a message (press Q to quit at any time): ")
+    if option.upper() == "Q" :
+        return
     if option.upper() == "E" :
         message = input("Enter your message: ")
-        while message.upper() != "Q" :
+        if message.upper() == "Q" :
+            return
+        if message.upper() != "Q" :
             otpe(message)
             print("\nMessage successfully encrypted.")
             main()
-        if message.upper() == "Q" :
-            return
-    elif option.upper() == "D" :
+    if option.upper() == "D" :
         ciphertextInFile = input("Enter the name of the file to decrypt: ")
         if os.path.isfile(ciphertextInFile) :
             otpInFile = input("Enter the otp file: ")
@@ -42,8 +44,6 @@ def main() :
             main()
         if ciphertextInFile.upper() == "Q" :
             return
-    elif option.upper() == "Q" :
-        return
     return
 
 def otpe(message) :
