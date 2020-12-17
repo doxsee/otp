@@ -44,6 +44,9 @@ def main() :
             main()
         if ciphertextInFile.upper() == "Q" :
             return
+    else:
+        print("\nInvalid selection.")
+        main()
     return
 
 def otpe(message) :
