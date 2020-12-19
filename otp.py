@@ -17,35 +17,30 @@ import os
 import time
 
 def main() :
-    option = input("Press E to Encrypt a message or D to Decrypt a message (press Q to quit at any time): ")
-    if option.upper() == "Q" :
-        return
+    option = input("(E) to Encrypt - (D) to Decrypt - (Q) to Quit): ")
     if option.upper() == "E" :
         message = input("Enter your message: ")
-        if message.upper() == "Q" :
-            return
-        if message.upper() != "Q" :
-            otpe(message)
-            print("\nMessage successfully encrypted.")
-            main()
-    if option.upper() == "D" :
+        otpe(message)
+        print("Message successfully encrypted.")
+        main()
+    elif option.upper() == "D" :
         ciphertextInFile = input("Enter the name of the file to decrypt: ")
         if os.path.isfile(ciphertextInFile) :
             otpInFile = input("Enter the otp file: ")
             if os.path.isfile(otpInFile) :
                 otpd(ciphertextInFile, otpInFile)
-                print("\nMessage successfully decrypted.")
+                print("Message successfully decrypted.")
                 main()
             else :
-                print("\nFile not found")
+                print("File not found")
                 main()
         else :
-            print("\nFile not found.")
+            print("File not found.")
             main()
-        if ciphertextInFile.upper() == "Q" :
-            return
+    elif option.upper() == "Q" :
+        return
     else:
-        print("\nInvalid selection.")
+        print("Invalid selection.")
         main()
     return
 
@@ -73,8 +68,8 @@ def otpe(message) :
 # Checks if there is another message already generated with the same filename.
 
     if os.path.exists("ciphertext.txt") :
-        outfile = open(("ciphertext{}.txt".format(int(time.time()))), "w")
-        otpfile = open(("otp{}.txt".format(int(time.time()))), "w")
+        outfile = open("ciphertext{}.txt".format(int(time.time())), "w")
+        otpfile = open("otp{}.txt".format(int(time.time())), "w")
         outfile.write(str(cryptNum))
         otpfile.write(str(otpNum))
     else :
@@ -110,10 +105,16 @@ def otpd(ciphertextInFile, otpInFile) :
     decryptedMessage = []
     for num in range(len(ciphertextList)) :
         decryptedMessage.append(ciphertextList[num] - otpList[num])
-        
-    message = open("message.txt", "w")
-    for element in decryptedMessage :
-        message.write(chr(element))
+    
+    
+    if os.path.exists("message.txt") :
+        message = open("message{}.txt".format(int(time.time())), "w")
+        for element in decryptedMessage :
+            message.write(chr(element))
+    else:
+        message = open("message.txt", "w")
+        for element in decryptedMessage :
+            message.write(chr(element))
     
     message.close()
     ciphertextFile.close()
