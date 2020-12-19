@@ -105,8 +105,7 @@ def otpd(ciphertextInFile, otpInFile) :
     decryptedMessage = []
     for num in range(len(ciphertextList)) :
         decryptedMessage.append(ciphertextList[num] - otpList[num])
-    
-    
+       
     if os.path.exists("message.txt") :
         message = open("message{}.txt".format(int(time.time())), "w")
         for element in decryptedMessage :
